@@ -29,7 +29,7 @@ self.expiry — key → the exact timestamp it should expire at (only keys set w
 
 Instead of returning None when a key's missing, get_value/remove_key raise a KeyError. The command loop catches that with try/except and turns it into a normal-looking error message. I like this better than checking if key in database everywhere because the "is something wrong" logic lives in one place instead of being copy-pasted into every command.
 
-TTL / expiration
+TTL / expiration{basically a set command which also performs auto del cmd after a specific time}
 
 When you SETEX something, it records time.time() + seconds — basically "the exact clock reading when this key should die." Nothing is running in the background counting down — instead, every time a key gets touched (GET, DEL, EXISTS, TTL), it first checks "has the clock already passed that stored timestamp?" and deletes the key right then if so. I learned this is called lazy expiration — the key doesn't vanish the instant it expires, it vanishes the next time someone actually looks for it.
 
@@ -38,9 +38,13 @@ saving and loading - one line per key, written as key and value separated by a t
 
 now i want to write about what i did other than this project in these last 3-4 days
 firstly i cleared my misconception about git and github
+
 then did few basic linux cmds (still not great at it but i have learned the most imp ones)
+
 created 2-3 projects using numpy(nothing major, just for a deeper understanding)
+
 watched the full ml specializtion course by ng andrew
+
 learned more on forensics and web exploitations
 
 this project taught me a lot more about python in general that how i could make something so unique with it, though i used ai for help (i wont deny that) but i tried writting the whole code by myself and understanding it(it helped me by showing how to write a readme.md file also)... hoepfully will learn a lot more in future through such projects!!!
