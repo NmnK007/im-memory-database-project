@@ -56,7 +56,7 @@ class NmnQL:
         return lines
  
     def load_lines(self, lines):
-        """Rebuild self.data from lines produced by to_lines(). Replaces current data."""
+        
         rebuilt = {}
         for raw_line in lines:
             line = raw_line.rstrip("\n")
@@ -81,10 +81,6 @@ class NmnQL:
 def tokenize(raw_line):
     """
     Split a typed line into tokens, with validation baked in.
- 
-    Returns (tokens, error_message). error_message is None when parsing
-    succeeded. This keeps all the "is this input well-formed?" logic in
-    one place instead of scattered across every command branch.
     """
     stripped = raw_line.strip()
     if stripped == "":
@@ -113,17 +109,17 @@ def run_shell():
         action = tokens[0].upper()
         rest = tokens[1:]
  
-        # ---- SET: needs exactly a key and a value ----
+        
         if action == "SET":
             if len(rest) < 2:
                 print("[!] SET needs a key and a value, e.g.: SET username alex")
                 continue
             key = rest[0]
-            value = " ".join(rest[1:])  # allow multi-word values without needing quotes
+            value = " ".join(rest[1:])  
             store.set_value(key, value)
             print(f"[ok] stored '{key}'")
  
-        # ---- GET: needs exactly a key, must exist ----
+        
         elif action == "GET":
             if len(rest) != 1:
                 print("[!] GET needs exactly one key, e.g.: GET username")
@@ -133,7 +129,7 @@ def run_shell():
             except KeyError:
                 print(f"[!] no such key: '{rest[0]}'")
  
-        # ---- DEL: needs exactly a key, must exist ----
+       
         elif action == "DEL":
             if len(rest) != 1:
                 print("[!] DEL needs exactly one key, e.g.: DEL username")
@@ -144,7 +140,7 @@ def run_shell():
             except KeyError:
                 print(f"[!] no such key: '{rest[0]}'")
  
-        # ---- SETEX: like SET, but the key auto-expires after N seconds ----
+       
         elif action == "SETEX":
             if len(rest) < 3:
                 print("[!] SETEX needs a key, seconds, and a value, e.g.: SETEX temp 10 hello")
@@ -160,7 +156,7 @@ def run_shell():
             store.set_with_expiry(key, value, seconds)
             print(f"[ok] stored '{key}' (expires in {seconds}s)")
  
-        # ---- TTL: how many seconds until a key expires ----
+        # TTL: how many seconds until a key expires 
         elif action == "TTL":
             if len(rest) != 1:
                 print("[!] TTL needs exactly one key, e.g.: TTL temp")
@@ -173,14 +169,14 @@ def run_shell():
             else:
                 print(f"{result}s left")
  
-        # ---- EXISTS: needs exactly a key ----
+        
         elif action == "EXISTS":
             if len(rest) != 1:
                 print("[!] EXISTS needs exactly one key, e.g.: EXISTS username")
                 continue
             print("yes" if store.has_key(rest[0]) else "no")
  
-        # ---- SAVE: dump everything to a file ----
+        
         elif action == "SAVE":
             if len(rest) != 1:
                 print("[!] SAVE needs a filename, e.g.: SAVE backup.txt")
@@ -191,7 +187,7 @@ def run_shell():
             except OSError as e:
                 print(f"[!] could not write file: {e}")
  
-        # ---- LOAD: replace current data with what's in a file ----
+        
         elif action == "LOAD":
             if len(rest) != 1:
                 print("[!] LOAD needs a filename, e.g.: LOAD backup.txt")
