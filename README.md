@@ -43,4 +43,4 @@ created 2-3 projects using numpy(nothing major, just for a deeper understanding)
 watched the full ml specializtion course by ng andrew
 learned more on forensics and web exploitations
 
-this project taught me a lot more about python in general that how i could make something so unique with it, though i used ai for help (i wont eny that) but i tried writting the whole code by myself and understanding it... hoepfully will learn a lot more in future through such projects!!!
+this project taught me a lot more about python in general that how i could make something so unique with it, though i used ai for help (i wont deny that) but i tried writting the whole code by myself and understanding it(it helped me by showing how to write a readme.md file also)... hoepfully will learn a lot more in future through such projects!!!
